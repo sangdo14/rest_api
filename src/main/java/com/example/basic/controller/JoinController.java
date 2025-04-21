@@ -1,7 +1,7 @@
 package com.example.basic.controller;
-
 import com.example.basic.dto.JoinDTO;
 import com.example.basic.service.JoinService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 //Model: 컨트롤러에서 템플릿에 데이터를 전달시 필요한 스프링 내장 객체
@@ -9,28 +9,34 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+// 인스턴스를 담을 멤버변수에 final 지정 가능케 함
+@RequiredArgsConstructor
 public class JoinController {
+    // 서비스 계층으로부터 joinService라는 인스턴스 @Autowired라는 어노테이션을 통해 바로 해당 인스턴스 객체를 바로 가져올 수 있음 (new 연산자 호출 필요없음)
+    // @Autowired
+    private final JoinService joinService;
 
-    @Autowired
-    private JoinService joinService;
-
+    // 처음 조인을 화면 출력하는 get방식 유형
     @GetMapping("/join")
     public String join() {
         return "join";
     }
 
+    // 해당 조인폼 화면에서 폼의 전송 이벤트 발생시 데이터 가공하는 post 방식 요청
+    // 이때 폼의 모든 요소를 일일이 전달하는 것이 아닌 DTO파일로 감싸서 전달
+    // Model타입의 파라미터, 서비스에 전달된 데이터를 뷰템플릿에 저달하기 위한 전용 클래스
     @PostMapping("/join/create")
     public String create(
             // 매개변수 용도의 객체
             @ModelAttribute JoinDTO formDTO,
-             // return에 사용하는 라이브러리 객체
+             // return에 사용하는 라이브러리 객체b
             Model model
     ) {
         // 서비스 메서드로 부터 전달받은 문자열을 전달 받음
         String msg = joinService.processJoin(formDTO);
-        System.out.println(model);
+//        System.out.println(model);
         model.addAttribute("data", msg);
-        System.out.println(model);
+//        System.out.println(model);
         return "index";
     }
 }

@@ -8,7 +8,8 @@
 <body>
 <section  layout:fragment="body">
     <h1>Main Page</h1>
-    <div th:utext="${data}"></div>
+    <!-- 컨트롤러 부터 전달받은 data안의 문자열을 div안쪽에 출력하는 th전용의 템플릿 -->
+    <div th:if="${data}" th:utext="${data}"></div>
 </section>
 </body>
 </html>
