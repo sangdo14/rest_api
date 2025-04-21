@@ -43,4 +43,10 @@ public class JoinController {
         model.addAttribute("users", users);
         return "admin";
     }
+
+    @GetMapping("/admin/del/{id}")
+    public String delUser(@PathVariable Long id){
+        joinService.delete(id);
+        return "redirect:/admin";
+    }
 }
