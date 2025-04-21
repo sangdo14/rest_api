@@ -12,7 +12,7 @@ import java.util.List;
 public class JoinService {
     private final JoinRepo joinRepo;
 
-    public String processJoin(JoinDTO dto) {
+    public void processJoin(JoinDTO dto) {
         // Entity클래스로 부터 각 항목에 맞는 데이터를 인자로 전달하여 실제 db에 저장할 모델 인스턴스생성
         JoinEntity user = new JoinEntity(null, dto.getUname(), dto.getEmail(), dto.getColors());
 
@@ -21,10 +21,10 @@ public class JoinService {
         joinRepo.save(user);
 
         // 컨트롤러를 통해 실제 템플릿에 전달된 데이터가 매핑된 태그 문자열 반환
-        String result = "</br><ul><li>name: " + dto.getUname() + "</li>"
-                + "<li>email: " + dto.getEmail() + "</li>"
-                + "<li>my color: " + dto.getColors() + "</li></ul></br>";
-        return result;
+//        String result = "</br><ul><li>name: " + dto.getUname() + "</li>"
+//                + "<li>email: " + dto.getEmail() + "</li>"
+//                + "<li>my color: " + dto.getColors() + "</li></ul></br>";
+//        return result;
     }
 
     //모든 db데이터 조회해서 반환

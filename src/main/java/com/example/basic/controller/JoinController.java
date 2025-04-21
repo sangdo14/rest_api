@@ -30,14 +30,17 @@ public class JoinController {
     // Model타입의 파라미터, 서비스에 전달된 데이터를 뷰템플릿에 저달하기 위한 전용 클래스
     @PostMapping("/join/create")
     public String create( @ModelAttribute JoinDTO formDTO, Model model ) {
-        String msg = joinService.processJoin(formDTO);
-        model.addAttribute("data", msg);
-        return "index";
+        joinService.processJoin(formDTO);
+//        String msg = joinService.processJoin(formDTO);
+//        model.addAttribute("data", msg);
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin")
     public String showAdminPage(Model model){
         List<JoinEntity> users = joinService.getAllUsers();
+        System.out.println(users);
+        model.addAttribute("users", users);
         return "admin";
     }
 }
