@@ -17,6 +17,9 @@
             <form th:action="@{'/admin/del/' + ${user.id}}" method="get">
                 <button type="submit">delete user</button>
             </form>
+            <form th:action="@{'/admin/edit/' + ${user.id}}" method="get">
+                <button type="submit">edit user</button>
+            </form>
         </li>
     </ul>
 </section>

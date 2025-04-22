@@ -27,9 +27,9 @@ public class JoinController {
 
     // 해당 조인폼 화면에서 폼의 전송 이벤트 발생시 데이터 가공하는 post 방식 요청
     // 이때 폼의 모든 요소를 일일이 전달하는 것이 아닌 DTO파일로 감싸서 전달
-    // Model타입의 파라미터, 서비스에 전달된 데이터를 뷰템플릿에 저달하기 위한 전용 클래스
+    // Model타입의 파라미터, 서비스에 전달된 데이터를 뷰템플릿에 전달하기 위한 전용 클래스
     @PostMapping("/join/create")
-    public String create( @ModelAttribute JoinDTO formDTO, Model model ) {
+    public String create( JoinEntity formDTO ) {
         joinService.processJoin(formDTO);
 //        String msg = joinService.processJoin(formDTO);
 //        model.addAttribute("data", msg);
@@ -39,7 +39,6 @@ public class JoinController {
     @GetMapping("/admin")
     public String showAdminPage(Model model){
         List<JoinEntity> users = joinService.getAllUsers();
-        System.out.println(users);
         model.addAttribute("users", users);
         return "admin";
     }
@@ -47,6 +46,19 @@ public class JoinController {
     @GetMapping("/admin/del/{id}")
     public String delUser(@PathVariable Long id){
         joinService.delete(id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/edit/{id}")
+    public String editUser(@PathVariable Long id, Model model){
+        JoinEntity user = joinService.getUserById(id);
+        model.addAttribute("user", user);
+        return "edit";
+    }
+
+    @PostMapping("/admin/update")
+    public String updateUser(JoinEntity formuser){
+        joinService.updateUser(formuser);
         return "redirect:/admin";
     }
 }
