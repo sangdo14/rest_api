@@ -23,8 +23,11 @@
         </li>
     </ul>
     <nav>
+        <button th:if="${userPage.hasPrevious()}"></button>
         <!-- #numbers.sequence()가 숫자형 리스트를 반환한다. -->
-        <a th:each="i: ${#numbers.sequence(0,userPage.totalPages-1)}" th:href="@{'/admin?page=' + ${i}}" th:text="${i+1}"></a>
+        <a th:class="${currentPage == i?'on': ''}" th:each="i: ${#numbers.sequence(0,userPage.totalPages-1)}" th:href="@{'/admin?page=' + ${i}}" th:text="${i+1}"></a>
+        <!-- 만약 현재 출력되고 있는 페이지 번호라면 링크기능 제거하고 숫자 버튼을 굵게 표시 -->
+        <button th:if="${userPage.hasNext()}"></button>
     </nav>
 </section>
 </body>
